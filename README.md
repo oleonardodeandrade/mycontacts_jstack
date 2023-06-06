@@ -1,5 +1,3 @@
-To enhance the README with the mock data, you can add an additional section to demonstrate the structure and content of the contacts array. Here's an updated version of the README:
-
 # MyContacts API
 
 This repository contains the MyContacts API, developed as part of the JStack Course. It is a powerful and efficient solution for managing contact information. With a comprehensive set of functions including create, read, update, and delete operations, the MyContacts API simplifies the management of contact records.
