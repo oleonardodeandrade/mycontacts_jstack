@@ -83,8 +83,8 @@ To use the MyContacts API with a database, you need to make the following change
 Update the database connection details in the database.js file.
 Remove the mock data and use the PostgreSQL database tables contacts and categories for data storage.
 Installation and Running the API
-Clone this repository: git clone <repository-url>
-Navigate to the project directory: cd mycontacts-api
+Clone this repository: git clone https://github.com/oleonardodeandrade/mycontacts_jstack
+Navigate to the project directory: cd mycontacts_jstack
 Install the dependencies: npm install
 Set up a PostgreSQL database and run the SQL queries from the database.sql file to create the necessary tables.
 Configure the database connection in the database.js file.
