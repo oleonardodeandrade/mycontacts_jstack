@@ -77,6 +77,8 @@ CREATE TABLE IF NOT EXISTS contacts (
   category_id UUID,
   FOREIGN KEY(category_id) REFERENCES categories(id)
 );
+```
+
 Usage with Database
 To use the MyContacts API with a database, you need to make the following changes to the code:
 
