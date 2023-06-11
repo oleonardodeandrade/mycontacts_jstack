@@ -13,6 +13,7 @@ This repository contains the MyContacts API, developed as part of the JStack Cou
 
 - **Node.js**: The MyContacts API is developed using Node.js, a powerful and versatile runtime environment for server-side applications.
 - **Express**: Built with Express, a fast and minimalistic web application framework for Node.js, the MyContacts API ensures efficient routing, middleware integration, and request handling.
+- **PostgreSQL**: The API uses a PostgreSQL database to store contact and category data.
 
 ## Getting Started
 
@@ -21,8 +22,10 @@ To set up and run the MyContacts API locally, follow these steps:
 1. Clone this repository: `git clone <repository-url>`
 2. Navigate to the project directory: `cd mycontacts-api`
 3. Install the dependencies: `npm install`
-4. Start the server: `npm start`
-5. The API will be accessible at `http://localhost:3000`.
+4. Set up a PostgreSQL database and run the SQL queries from the `database.sql` file to create the necessary tables.
+5. Configure the database connection in the `database.js` file.
+6. Start the server: `npm run dev`
+7. The API will be accessible at `http://localhost:3000`.
 
 ## API Endpoints
 
@@ -33,56 +36,73 @@ The MyContacts API exposes the following endpoints:
 - `GET /contacts/:id`: Retrieve a specific contact by ID.
 - `PUT /contacts/:id`: Update a specific contact by ID.
 - `DELETE /contacts/:id`: Delete a specific contact by ID.
+- `GET /categories`: Retrieve all categories.
+- `POST /categories`: Create a new category.
 
-Please note that the MyContacts API currently uses mock data and does not connect to a database. The data is stored in memory during the runtime of the application.
+Please note that the MyContacts API now uses a PostgreSQL database for data storage.
 
-## Mock Data
+## Controllers
 
-The MyContacts API uses the following mock data as an example:
+The API controllers handle the logic for each endpoint. The following controllers are included:
 
-```javascript
-let contacts = [
-  {
-    id: v4(),
-    name: 'Leonardo',
-    email: 'leonardo@gmail.com',
-    phone: '1212121',
-    category_id: v4(),
-  },
-  {
-    id: v4(),
-    name: 'José',
-    email: 'jose@gmail.com',
-    phone: '1212121',
-    category_id: v4(),
-  },
-];
-```
+- `ContactController`: Manages the contact-related endpoints.
+- `CategoryController`: Manages the category-related endpoints.
 
-Please note that the `v4()` function is a placeholder representing a unique identifier generator.
+## Repositories
 
-For detailed documentation on the API endpoints and their usage, please refer to the API documentation or the source code.
+The API repositories interact with the database to perform CRUD operations. The following repositories are included:
 
-## Contributing
+- `ContactsRepository`: Handles database operations for the contact entity.
+- `CategoriesRepository`: Handles database operations for the category entity.
 
+## Database Setup
+
+To use the MyContacts API with a database, you need to set up a PostgreSQL database and run the following SQL queries:
+
+```sql
+CREATE DATABASE mycontacts;
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE IF NOT EXISTS categories (
+  id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
+  name VARCHAR NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS contacts (
+  id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
+  name VARCHAR NOT NULL,
+  email VARCHAR UNIQUE,
+  phone VARCHAR,
+  category_id UUID,
+  FOREIGN KEY(category_id) REFERENCES categories(id)
+);
+Usage with Database
+To use the MyContacts API with a database, you need to make the following changes to the code:
+
+Update the database connection details in the database.js file.
+Remove the mock data and use the PostgreSQL database tables contacts and categories for data storage.
+Installation and Running the API
+Clone this repository: git clone <repository-url>
+Navigate to the project directory: cd mycontacts-api
+Install the dependencies: npm install
+Set up a PostgreSQL database and run the SQL queries from the database.sql file to create the necessary tables.
+Configure the database connection in the database.js file.
+Start the server: npm run dev
+The API will be accessible at http://localhost:3000.
+Contributing
 Contributions to the MyContacts API are welcome and encouraged. To contribute, please follow these guidelines:
 
-1. Fork this repository.
-2. Create a new branch: `git checkout -b my-feature`
-3. Make your changes and commit them: `git commit -am 'Add new feature'`
-4. Push to the branch: `git push origin my-feature`
-5. Submit a pull request.
+Fork this repository.
+Create a new branch: git checkout -b my-feature
+Make your changes and commit them: git commit -am 'Add new feature'
+Push to the branch: git push origin my-feature
+Submit a pull request.
+License
+The MyContacts API is open-source and released under the MIT License. Feel free to modify and use the code in accordance with the terms of the license.
 
-## License
-
-The MyContacts API is open-source and released under the [MIT License](LICENSE). Feel free to modify and use the code in accordance with the terms of the license.
-
-## Acknowledgements
-
+Acknowledgements
 The development of the MyContacts API was made possible through the JStack Course. We extend our gratitude to the JStack team for their guidance and support throughout the course.
 
-## Contact
-
-If you have any questions, suggestions, or issues
-
-, please feel free to reach out to us. You can contact the project maintainers by emailing [leonardoh.deandrade@gmail.com](mailto:leonardoh.deandrade@gmail.com) or by opening an issue in this repository.
+Contact
+If you have any questions, suggestions, or issues, please feel free to reach out to us. You can contact the project maintainers by emailing leonardoh.deandrade@gmail.com or by opening an issue in this repository.
