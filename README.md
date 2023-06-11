@@ -19,7 +19,7 @@ This repository contains the MyContacts API, developed as part of the JStack Cou
 
 To set up and run the MyContacts API locally, follow these steps:
 
-1. Clone this repository: `git clone <repository-url>`
+1. Clone this repository: `git clone https://github.com/oleonardodeandrade/mycontacts_jstack`
 2. Navigate to the project directory: `cd mycontacts-api`
 3. Install the dependencies: `npm install`
 4. Set up a PostgreSQL database and run the SQL queries from the `database.sql` file to create the necessary tables.
